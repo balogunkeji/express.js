@@ -1,0 +1,14 @@
+{
+  "name": "express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "node --watch --env-file=.env index"
+  },
+  "private": true,
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
