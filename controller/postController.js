@@ -1,4 +1,4 @@
-
+const Task = require('../model/task');
 let posts = [
     { id: 1, title: 'post 1' },
     { id: 2, title: 'post 2' },
@@ -17,11 +17,15 @@ let posts = [
 // getAllPost
 
 export const  getAllPost = (req, res) => {
-    const limit = parseInt(req.query.limit);
-    if (!isNaN(limit) && limit > 0) {
-        return res.status(200).json(posts.slice(0, limit));
-    }
-    return res.status(200).json(posts);
+    const task = new Task({
+
+    });
+
+    // const limit = parseInt(req.query.limit);
+    // if (!isNaN(limit) && limit > 0) {
+    //     return res.status(200).json(posts.slice(0, limit));
+    // }
+    // return res.status(200).json(posts);
 }
 
 // @desc

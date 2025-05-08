@@ -3,13 +3,16 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
-let port = process.env.PORT || 8080;
-
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
+let mongoose = require('mongoose')
 
 let app = express();
+let uri = "mongodb+srv://tomisinbalogunn:G2nxIhBtH8dhRKhh@cluster0.wukc81q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
+mongoose.connect(uri).then(()=>{
+  console.log(`Connected to MongoDB`);
+})
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
