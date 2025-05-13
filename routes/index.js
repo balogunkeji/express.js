@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {getAllPost, getASinglePost, createPost, updatePost} = require("../controller/postController.js");
+const {deletePost} = require("../controller/postController");
 
 
 // GET homepage
@@ -19,17 +20,7 @@ router.post('/api/task', createPost);
 // PUT
 router.put('/api/task/:id', updatePost);
 
-//DELETE
-// router.delete('/api/task/:id', (req, res) => {
-//   const id = Number(req.params.id);
-//   const post = posts.find((p) => p.id === id);
-//
-//   if (!post) {
-//     return res.status(404).json({ error: `Post with id ${id} doesn't exist` });
-//   }
-//
-//   posts = posts.filter((p) => p.id !== id);
-//   res.status(200).json(post);
-// });
+// DELETE
+router.delete('/api/task/:id', deletePost);
 
 module.exports = router;
