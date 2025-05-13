@@ -32,7 +32,6 @@ const taskSchema = new Schema({
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true, // Makes sure every task belongs to a user
     },
     createdAt: {
         type: Date,

@@ -1,4 +1,6 @@
-const Task = require('../model/task');
+const Task = require('../models/task');
+const mongoose = require('mongoose');
+
 let posts = [
     { id: 1, title: 'post 1' },
     { id: 2, title: 'post 2' },
@@ -16,22 +18,21 @@ let posts = [
 // @route
 // getAllPost
 
-export const  getAllPost = (req, res) => {
-    const task = new Task({
+const getAllPost = async (req, res) => {
+    try {
+        const tasks = await Task.find();
+        res.status(200).json(tasks);
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred while fetching tasks.' });
+    }
+};
 
-    });
 
-    // const limit = parseInt(req.query.limit);
-    // if (!isNaN(limit) && limit > 0) {
-    //     return res.status(200).json(posts.slice(0, limit));
-    // }
-    // return res.status(200).json(posts);
-}
 
 // @desc
 // @route
 // getASinglePost
-export const  getASinglePost = (req, res) => {
+const  getASinglePost = (req, res) => {
     const id = Number(req.params.id);
     const post = posts.find((p) => p.id === id);
     if (!post) {
@@ -43,22 +44,25 @@ export const  getASinglePost = (req, res) => {
 // @desc
 // @route
 // createPost
-export const  createPost = (req, res) => {
-    const newPost = {
-        id: posts.length + 1,
-        title: req.body.title
+const createPost = async (req, res) => {
+    try {
+        const task = new Task({
+            ...req.body,
+            createdBy: new mongoose.Types.ObjectId(),
+            project: new mongoose.Types.ObjectId(),
+        });
+        const savedTask = await task.save();
+        res.status(200).json(savedTask);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
     }
-    if(!newPost.title) {
-        return res.status(400).json({ error: `Please enter title ` });
-    }
-    posts.push(newPost);
-    return res.status(201).json(posts);
-}
+};
+
 
 // @desc
 // @route
 // updatePost
-export const  updatePost = (req, res) => {
+const  updatePost = (req, res) => {
     const id = Number(req.params.id);
     const post = posts.find((p) => p.id === id);
 
@@ -73,3 +77,10 @@ export const  updatePost = (req, res) => {
     post.title = req.body.title;
     res.status(200).json(post);
 }
+
+module.exports = {
+    getAllPost,
+    getASinglePost,
+    createPost,
+    updatePost
+};
