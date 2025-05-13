@@ -9,17 +9,21 @@ let mongoose = require('mongoose')
 
 let app = express();
 let uri = "mongodb+srv://tomisinbalogunn:G2nxIhBtH8dhRKhh@cluster0.wukc81q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-
+app.use((req, res, next) => {
+  console.log(`➡️ ${req.method} ${req.url}`);
+  next();
+});
 mongoose.connect(uri).then(()=>{
   console.log(`Connected to MongoDB`);
 })
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
