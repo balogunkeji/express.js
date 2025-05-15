@@ -8,9 +8,9 @@ const usersRouter = require('./routes/users');
 const mongoose = require('mongoose')
 
 const app = express();
-const uri = "mongodb+srv://tomisinbalogunn:G2nxIhBtH8dhRKhh@cluster0.wukc81q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const uri = process.env.MONGODB_URI;
 app.use((req, res, next) => {
-  console.log(`➡️ ${req.method} ${req.url}`);
+  console.log(`➡️ ${req.method} ${req.url}, hello world`);
   next();
 });
 mongoose.connect(uri).then(()=>{
@@ -40,11 +40,9 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
-
 
 module.exports = app;
