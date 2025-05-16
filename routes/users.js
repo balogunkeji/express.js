@@ -1,8 +1,8 @@
 const express = require('express');
 const {
-  getLogin,
+  // getLogin,
   postLogin,
-  getSignUp,
+  // getSignUp,
   postSignUp
 } = require("../controller/userController");
 
@@ -17,12 +17,12 @@ router.get('/', (req, res) => {
 router.post('/signup', postSignUp);
 
 // GET /users/login → Render login page
-router.get('/login', getLogin);
+// router.get('/login', getLogin);
 
 // POST /users/login → Handle login form submission
 router.post('/login', postLogin);
 
 // GET /users/signup → Render signup page
-router.get('/signup', getSignUp);
+// router.get('/signup', getSignUp);
 
 module.exports = router;
