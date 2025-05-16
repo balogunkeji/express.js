@@ -38,10 +38,10 @@ const createToken = (id) => {
     });
 };
 
-// // GET routes (optional)
-// const getSignUp = (req, res) => {
-//     res.send('Signup route'); // Or render signup page
-// };
+// GET routes (optional)
+const getSignUp = (req, res) => {
+    res.render('signup'); // Or render signup page
+};
 //
 // const getLogin = (req, res) => {
 //     res.send('Login route'); // Or render login page
@@ -82,7 +82,7 @@ const postLogin = async (req, res) => {
 };
 
 module.exports = {
-    // getSignUp,
+    getSignUp,
     postSignUp,
     // getLogin,
     postLogin

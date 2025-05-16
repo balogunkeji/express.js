@@ -2,7 +2,7 @@ const express = require('express');
 const {
   // getLogin,
   postLogin,
-  // getSignUp,
+  getSignUp,
   postSignUp
 } = require("../controller/userController");
 
@@ -10,7 +10,7 @@ const router = express.Router();
 
 // GET /users/ → Render homepage or dashboard
 router.get('/', (req, res) => {
-  res.render('users', { title: 'welcome to express' });
+  res.render('users');
 });
 
 // POST /users/signup → Handle signup form submission
@@ -23,6 +23,6 @@ router.post('/signup', postSignUp);
 router.post('/login', postLogin);
 
 // GET /users/signup → Render signup page
-// router.get('/signup', getSignUp);
+router.get('/signup', getSignUp);
 
 module.exports = router;
