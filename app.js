@@ -7,6 +7,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const mongoose = require('mongoose')
+const cors = require("cors");
 
 const app = express();
 const uri = process.env.MONGODB_URI;
@@ -28,6 +29,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

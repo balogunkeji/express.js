@@ -1,6 +1,6 @@
 const express = require('express');
 const {
-  // getLogin,
+  getLogin,
   postLogin,
   getSignUp,
   postSignUp
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 router.post('/signup', postSignUp);
 
 // GET /users/login → Render login page
-// router.get('/login', getLogin);
+router.get('/login', getLogin);
 
 // POST /users/login → Handle login form submission
 router.post('/login', postLogin);
