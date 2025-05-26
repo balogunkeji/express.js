@@ -18,14 +18,14 @@ const handleErrors = (err) => {
             errors[properties.path] = properties.message;
         });
     }
-
+console.log(errors, 'hello error');
     return errors;
 }
 
 // JWT helper
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-    return jwt.sign({ id }, 'tomi secreate key', {
+    return jwt.sign({ id }, 'tomi secret key', {
         expiresIn: maxAge
     });
 };
@@ -61,9 +61,16 @@ const postLogin = async (req, res) => {
    const { email, password } = req.body;
    try{
        const user = await User.login(email, password);
+       const token = createToken(user._id);
+       res.cookie('jwt', token, {
+           httpOnly: true,
+           maxAge: maxAge * 1000,
+       });
        res.status(200).json({ user: user._id });
-   }catch(err){
-       res.status(400).json({});
+   } catch(err){
+       const errors = handleErrors(err);
+       res.status(400).json({errors});
+       console.log(errors);
    }
 
 };
