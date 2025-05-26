@@ -7,22 +7,38 @@ const mongoose = require('mongoose');
 
 const getAllPost = async (req, res) => {
     try {
-        const filter = {}
+        const filter = {};
+
+        // Filter by completion
         if (req.query.completed) {
             filter.completed = req.query.completed === 'true';
         }
+
+        // Filter by priority
         if (req.query.priority) {
             filter.priority = req.query.priority;
         }
-        if (req.query.dueDate) {
-            filter.dueDate = req.query.dueDate;
+
+        // Filter by dueDate ranges
+        if (req.query.dueBefore || req.query.dueAfter) {
+            filter.dueDate = {};
+
+            if (req.query.dueBefore) {
+                filter.dueDate.$lt = new Date(req.query.dueBefore);
+            }
+
+            if (req.query.dueAfter) {
+                filter.dueDate.$gt = new Date(req.query.dueAfter);
+            }
         }
-        const tasks = await Task.find();
+
+        const tasks = await Task.find(filter);
         res.status(200).json(tasks);
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while fetching tasks.' });
     }
 };
+
 
 // @desc
 // @route

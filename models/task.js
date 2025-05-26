@@ -25,6 +25,12 @@ const taskSchema = new Schema({
     dueDate: {
         type: Date,
     },
+    dueBefore: {
+        type: Date,
+    },
+    dueAfter: {
+        type: Date,
+    },
     labels: [{
         type: String,
     }],
