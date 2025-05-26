@@ -19,6 +19,9 @@ const taskSchema = new Schema({
         enum: ['low', 'medium', 'high'],
         default: 'medium',
     },
+    date: {
+       type: Date,
+    },
     dueDate: {
         type: Date,
     },

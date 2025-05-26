@@ -7,6 +7,16 @@ const mongoose = require('mongoose');
 
 const getAllPost = async (req, res) => {
     try {
+        const filter = {}
+        if (req.query.completed) {
+            filter.completed = req.query.completed === 'true';
+        }
+        if (req.query.priority) {
+            filter.priority = req.query.priority;
+        }
+        if (req.query.dueDate) {
+            filter.dueDate = req.query.dueDate;
+        }
         const tasks = await Task.find();
         res.status(200).json(tasks);
     } catch (error) {
@@ -40,6 +50,7 @@ const createPost = async (req, res) => {
     try {
         const task = new Task({
             ...req.body,
+            priority: req.body.priority ||'medium',
             createdBy: new mongoose.Types.ObjectId(),
             project: new mongoose.Types.ObjectId(),
         });
