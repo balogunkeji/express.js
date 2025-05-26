@@ -6,21 +6,32 @@ const handleErrors = (err) => {
     console.log(err.message, err.code);
     let errors = { email: '', password: '' };
 
-    // duplicate email error
+    // Incorrect email
+    if (err.message === 'incorrect email') {
+        errors.email = 'That email is not registered';
+    }
+
+    // Incorrect password
+    if (err.message === 'incorrect password') {
+        errors.password = 'That password is incorrect';
+    }
+
+    // Duplicate email error
     if (err.code === 11000) {
-        errors.email = 'that email is already registered';
+        errors.email = 'That email is already registered';
         return errors;
     }
 
-    // validation errors
+    // Validation errors
     if (err.message.includes('user validation failed')) {
         Object.values(err.errors).forEach(({ properties }) => {
             errors[properties.path] = properties.message;
         });
     }
-console.log(errors, 'hello error');
+
     return errors;
-}
+};
+
 
 // JWT helper
 const maxAge = 3 * 24 * 60 * 60;

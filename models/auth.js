@@ -31,7 +31,6 @@ userSchema.pre('save', async function(next) {
 
 //static method to login
 userSchema.statics.login = async function(email, password) {
-    console.log('Login static method called');
     const user = await this.findOne({ email });
     if (user) {
         const auth = await bcrypt.compare(password, user.password);
@@ -42,6 +41,8 @@ userSchema.statics.login = async function(email, password) {
     }
     throw Error('incorrect email');
 };
+
+
 
 //post save: runs after the function
 userSchema.post('save', async function(doc, next) {
