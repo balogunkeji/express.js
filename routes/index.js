@@ -10,17 +10,17 @@ router.get('/', function (req, res, next) {
 });
 
 // GET posts
-router.get('/api/task', getAllPost);
+router.get('/api/task', requireAuth, getAllPost);
 
 // GET single post
-router.get('/api/task/:id', getASinglePost);
+router.get('/api/task/:id', requireAuth, getASinglePost);
 
-router.post('/api/task', createPost);
+router.post('/api/task', requireAuth, createPost);
 
 // PUT
-router.put('/api/task/:id', updatePost);
+router.put('/api/task/:id', requireAuth, updatePost);
 
 // DELETE
-router.delete('/api/task/:id', deletePost);
+router.delete('/api/task/:id', requireAuth, deletePost);
 
 module.exports = router;
