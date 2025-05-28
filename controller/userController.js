@@ -37,7 +37,7 @@ const handleErrors = (err) => {
 // JWT helper
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-    return jwt.sign({ id }, 'tomi secret key', {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: maxAge
     });
 };

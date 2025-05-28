@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {getAllPost, getASinglePost, createPost, updatePost} = require("../controller/postController.js");
 const {deletePost} = require("../controller/postController");
-
+const { requireAuth } = require('../middleware/authMiddleware');
 
 // GET homepage
 router.get('/', function (req, res, next) {
