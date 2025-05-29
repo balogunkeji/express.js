@@ -90,16 +90,21 @@ const postLogin = async (req, res) => {
 };
 
 const updateEmail = async (req, res) => {
-    const { email } = req.body;
-    const userId = req.user.id; // assuming you get this from auth middleware
+    const { newEmail } = req.body;
+    const userId = req.user;
 
     try {
-        const updatedUser = await User.findByIdAndUpdate(userId, { email }, { new: true });
-        if (!updatedUser) {
-            return res.status(404).json({ error: "User not found" });
+        const user = await User.findByIdAndUpdate(
+            userId,
+            { email: newEmail },
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
         }
 
-        res.status(200).json({ message: "Email updated successfully", email: updatedUser.email });
+        res.status(200).json({ message: 'Email updated successfully', email: user.email });
     } catch (err) {
         const errors = handleErrors(err);
         res.status(400).json({ errors });
@@ -108,16 +113,13 @@ const updateEmail = async (req, res) => {
 
 
 
+
 const updatePassword = async (req, res) => {
     const { newPassword } = req.body;
+    const userId = req.user;
 
     try {
-        const userId = req.user._id;
-
-        // Hash the new password
-        const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(newPassword, salt);
-
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
         const user = await User.findByIdAndUpdate(
             userId,
             { password: hashedPassword },
@@ -125,16 +127,15 @@ const updatePassword = async (req, res) => {
         );
 
         if (!user) {
-            return res.status(404).json({ error: "User not found" });
+            return res.status(404).json({ error: 'User not found' });
         }
 
-        res.status(200).json({ message: "Password updated successfully" });
+        res.status(200).json({ message: 'Password updated successfully' });
     } catch (err) {
         const errors = handleErrors(err);
         res.status(400).json({ errors });
     }
 };
-
 
 module.exports = {
     getSignUp,

@@ -26,7 +26,6 @@ router.post('/login', postLogin);
 // GET /users/signup → Render signup page
 router.get('/signup', getSignUp);
 
-
 // UPDATE /users/updateEmail
 router.put('/update-email', requireAuth, updateEmail);
 
