@@ -90,19 +90,22 @@ const postLogin = async (req, res) => {
 };
 
 const updateEmail = async (req, res) => {
-    const { newEmail } = req.body;
-    try{
-        const user = await User.findByIdAndUpdate({ email: newEmail }, { new: true, runValidators: true });
-        if (!user) {
+    const { email } = req.body;
+    const userId = req.user.id; // assuming you get this from auth middleware
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(userId, { email }, { new: true });
+        if (!updatedUser) {
             return res.status(404).json({ error: "User not found" });
         }
 
-        res.status(200).json({ message: "Email updated successfully", email: user.email})
-    } catch (err){
+        res.status(200).json({ message: "Email updated successfully", email: updatedUser.email });
+    } catch (err) {
         const errors = handleErrors(err);
         res.status(400).json({ errors });
     }
-}
+};
+
 
 
 const updatePassword = async (req, res) => {
