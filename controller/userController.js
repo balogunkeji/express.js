@@ -132,8 +132,6 @@ const updatePassword = async (req, res) => {
     }
 };
 
-module.exports = { updatePassword };
-
 
 module.exports = {
     getSignUp,

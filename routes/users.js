@@ -5,6 +5,7 @@ const {
   getSignUp,
   postSignUp, updateEmail, updatePassword
 } = require("../controller/userController");
+const {requireAuth} = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
@@ -27,10 +28,10 @@ router.get('/signup', getSignUp);
 
 
 // UPDATE /users/updateEmail
-router.put('/update-email', updateEmail);
+router.put('/update-email', requireAuth, updateEmail);
 
 // UPDATE /users/updateEmail
-router.put('/update-password', updatePassword);
+router.put('/update-password', requireAuth, updatePassword);
 
 
 module.exports = router;
