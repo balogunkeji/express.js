@@ -3,7 +3,7 @@ const {
   getLogin,
   postLogin,
   getSignUp,
-  postSignUp
+  postSignUp, updateEmail, updatePassword
 } = require("../controller/userController");
 
 const router = express.Router();
@@ -24,5 +24,13 @@ router.post('/login', postLogin);
 
 // GET /users/signup → Render signup page
 router.get('/signup', getSignUp);
+
+
+// UPDATE /users/updateEmail
+router.put('/update-email', updateEmail);
+
+// UPDATE /users/updateEmail
+router.put('/update-password', updatePassword);
+
 
 module.exports = router;
